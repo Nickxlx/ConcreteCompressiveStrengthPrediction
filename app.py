@@ -35,8 +35,10 @@ def pred():
             new_Data = pd.DataFrame(data)
             prediction_pipeline = PredictionPipeline()
             pred = prediction_pipeline.predict(new_Data)
-            result = pred
+            result =  pred.tolist()
             return render_template("index.html", context=result)
+        else:
+            return render_template('index.html')
     except Exception as e:
         raise CustomException(e,sys)
 

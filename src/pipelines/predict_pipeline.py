@@ -30,7 +30,7 @@ class PredictionPipeline:
 
             input_csv_file = self.request.files['file']
             pred_file_path = os.path.join(pred_file_input_dir, input_csv_file.filename)
-
+            os.makedirs(os.path.dirname(pred_file_path), exist_ok=True)
             input_csv_file.save(pred_file_path)
 
             return pred_file_path
