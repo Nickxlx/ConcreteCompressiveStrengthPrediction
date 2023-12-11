@@ -1,0 +1,49 @@
+model_selection:
+  model:
+    Linear Regression:
+      search_param_grid:
+        # Linear Regression specific parameters 
+        normalize:
+          - True
+          - False
+    Ridge Regression:
+      search_param_grid:
+        # Ridge Regression specific parameters 
+        alpha:
+          - 0.01
+          - 0.1
+          - 1
+          - 10
+    Lasso Regression:
+      search_param_grid:
+        # Lasso Regression specific parameters 
+        alpha:
+          - 0.001
+          - 0.01
+          - 0.1
+          - 1
+          - 10
+          - 100
+          - 1000
+    Random Forest Regression:
+      search_param_grid:
+        # Random Forest Regression specific parameters 
+        n_estimators:
+          - 50
+          - 100
+          - 150
+        max_depth:
+          - 5
+          - 10
+          - 15
+    Gradient Boosting Regression:
+      search_param_grid:
+        # Gradient Boosting Regression specific parameters 
+        n_estimators:
+          - 50
+          - 100
+          - 150
+        max_depth:
+          - 3
+          - 5
+          - 7
