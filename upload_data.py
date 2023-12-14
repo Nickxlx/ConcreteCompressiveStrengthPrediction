@@ -9,7 +9,7 @@ if __name__=="__main__":
     df = pd.read_csv("Notebooks/cement_data.csv")
 
     # Rename columns by extracting the first word
-    new_columns = ["cement", "slag", "flyash", "water", "Superplasticizer", "Coaseseaggregate", "fineaggregate", "age", "strength"]
+    new_columns = ["cement", "slag", "flyash", "water", "superplasticizer", "coaseseaggregate", "fineaggregate", "age", "strength"]
     df.columns = new_columns
 
     # connection with the database

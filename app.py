@@ -1,4 +1,4 @@
-import os,sys
+import sys
 import pandas as pd 
 from flask import Flask, request, render_template, jsonify, send_file
 
@@ -35,7 +35,7 @@ def pred():
             new_Data = pd.DataFrame(data)
             prediction_pipeline = PredictionPipeline()
             pred = prediction_pipeline.predict(new_Data)
-            result =  pred.tolist()
+            result =  pred[0]
             return render_template("index.html", context=result)
         else:
             return render_template('index.html')
@@ -51,8 +51,8 @@ def upload():
 
             logging.info("prediction completed. Downloading prediction file.")
             return send_file(prediction_file_detail.prediction_file_path,
-                            download_name= prediction_file_detail.prediction_file_name,
-                            as_attachment= True)
+                            download_name = prediction_file_detail.prediction_file_name,
+                            as_attachment = True)
         else:
             return render_template('upload_file.html')
     except Exception as e:

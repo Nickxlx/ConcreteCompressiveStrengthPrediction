@@ -48,15 +48,30 @@ def save_obj(file_path, obj):
     except Exception as e:
         raise CustomException(e, sys)
     
+# def load_obj(file_path):
+#     try:
+
+#         with open(file_path, "rb") as file:
+#             t = pickle.load(file)
+#             return t
+#     except Exception as e:
+#         raise CustomException(e, sys)
+    
 def load_obj(file_path):
     try:
-
         with open(file_path, "rb") as file:
-            pickle.load(file)
-
+            t = pickle.load(file)
+            return t
+    except FileNotFoundError as fnf_error:
+        logging.error(f"File not found error: {fnf_error}, File path: {file_path}")
+        raise CustomException(fnf_error, sys)
+    except pickle.UnpicklingError as unpickling_error:
+        logging.error(f"Unpickling error: {unpickling_error}, File path: {file_path}")
+        raise CustomException(unpickling_error, sys)
     except Exception as e:
+        logging.error(f"Unexpected error: {e}, File path: {file_path}")
         raise CustomException(e, sys)
-    
+
 def train_evaluate_model(x, y, models):
     try:
         x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.2, 

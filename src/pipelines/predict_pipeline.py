@@ -30,12 +30,12 @@ class PredictionPipeline:
 
             input_csv_file = self.request.files['file']
             pred_file_path = os.path.join(pred_file_input_dir, input_csv_file.filename)
-            os.makedirs(os.path.dirname(pred_file_path), exist_ok=True)
+            
             input_csv_file.save(pred_file_path)
-
+            logging.info("Input file saved successfully.")
             return pred_file_path
         except Exception as e:
-            raise CustomException(e, sys)
+            raise CustomException(e,sys)
 
     def predict(self, features):
         try:
@@ -44,9 +44,11 @@ class PredictionPipeline:
 
             preprocessor = load_obj(file_path=preprocessor_path)
             model = load_obj(file_path=model_path)
-
             feature_scaled = preprocessor.transform(features)
             preds = model.predict(feature_scaled)
+
+            logging.info("Prediction successful.")
+
             return preds
 
         except Exception as e:
@@ -57,25 +59,29 @@ class PredictionPipeline:
             # Load the input data
             input_dataframe: pd.DataFrame = pd.read_csv(input_dataframe_path)
 
+            input_dataframe = input_dataframe.drop(columns=["strength"], axis=1)
+
             # Predict using the model
-            predictions = self.predict(input_dataframe.drop(columns=["strength"])) 
+            predictions = self.predict(input_dataframe) 
 
             # Add predictions to the DataFrame
             input_dataframe["predicted_strength"] = predictions
             
             os.makedirs(self.prediction_file_detail.prediction_output_dirname, exist_ok=True)
+
             input_dataframe.to_csv(self.prediction_file_detail.prediction_file_path, index=False)
-            logging.info("Predictions completed.")
+            logging.info("Predictions written to file.")
 
         except Exception as e:
             raise CustomException(e, sys) from e
-
+        
     def run_pipeline(self):
         try:
             input_csv_path = self.save_input_files()
+        
             self.get_predicted_dataframe(input_csv_path)
 
             return self.prediction_file_detail
-
         except Exception as e:
             raise CustomException(e, sys)
+

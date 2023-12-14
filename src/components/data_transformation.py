@@ -23,13 +23,14 @@ class DataTransformation:
 
     def get_data_transform(self):
         try:
-            imputer = ("imputer", KNNImputer(n_neighbors=3, weights='uniform',missing_values=np.nan))
+            imputer = ("imputer", KNNImputer(n_neighbors=3, weights='uniform', missing_values=np.nan))
             scaler = ("scaler", StandardScaler())
 
             preprocessor = Pipeline(
-                    [
-                        imputer,scaler
-                    ]
+                [
+                    imputer,
+                    scaler
+                ]
             ) 
             return preprocessor
         except Exception as e:
