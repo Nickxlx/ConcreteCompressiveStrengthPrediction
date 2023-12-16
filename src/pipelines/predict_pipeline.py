@@ -42,9 +42,9 @@ class PredictionPipeline:
 
         try:
             logging.info("Initializing Prediction. ")
-
             preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
             model_path = os.path.join("artifacts","model.pkl")
+
             preprocessor = load_obj(file_path=preprocessor_path)
             model = load_obj(file_path=model_path)
             feature_scaled = preprocessor.transform(features)

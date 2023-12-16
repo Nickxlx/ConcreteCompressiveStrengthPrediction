@@ -7,9 +7,10 @@ from src.logger import logging
 
 from src.pipelines.train_pipeline import TrainPipeline
 from src.pipelines.predict_pipeline import PredictionPipeline
-from src.pipelines.predict_pipeline import PredictionFileDetail
 
-app = Flask(__name__)
+application = Flask(__name__)
+
+app = application
 
 @app.route("/")
 def home():
@@ -30,12 +31,14 @@ def train():
 def pred():
     try:
         if request.method == "POST":
+            # requesting data into dict from from the form
             data = dict(request.form.items())
-            # print(data)
-            # return jsonify("done")
-            new_Data = pd.DataFrame(data)
-            prediction_pipeline = PredictionPipeline()
-            pred = prediction_pipeline.predict(new_Data)
+            # Convert string values to numeric types (int or float)
+            data = {key: float(value) for key, value in data.items()}
+
+            new_data_df = pd.DataFrame([data])
+            prediction_pipeline = PredictionPipeline(request=request)
+            pred = prediction_pipeline.predict(new_data_df)
             result =  pred[0]
             return render_template("index.html", final_result=result)
         else:
