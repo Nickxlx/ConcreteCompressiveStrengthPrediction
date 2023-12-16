@@ -7,6 +7,7 @@ from src.logger import logging
 
 from src.pipelines.train_pipeline import TrainPipeline
 from src.pipelines.predict_pipeline import PredictionPipeline
+from src.pipelines.predict_pipeline import PredictionFileDetail
 
 app = Flask(__name__)
 
@@ -23,7 +24,7 @@ def train():
         return jsonify("Training Successfull.")
     except Exception as e:
         raise CustomException(e, sys)
-    
+
 # route for single value prediction
 @app.route("/predict", methods = ["POST", "GET"])
 def pred():
@@ -36,7 +37,7 @@ def pred():
             prediction_pipeline = PredictionPipeline()
             pred = prediction_pipeline.predict(new_Data)
             result =  pred[0]
-            return render_template("index.html", context=result)
+            return render_template("index.html", final_result=result)
         else:
             return render_template('index.html')
     except Exception as e:
@@ -49,12 +50,13 @@ def upload():
             prediction_pipeline = PredictionPipeline(request=request)
             prediction_file_detail= prediction_pipeline.run_pipeline()
 
-            logging.info("prediction completed. Downloading prediction file.")
-            return send_file(prediction_file_detail.prediction_file_path,
-                            download_name = prediction_file_detail.prediction_file_name,
+            logging.info("prediction completed, Downloading prediction file.")
+            return send_file(prediction_file_detail,
+                            download_name = prediction_file_detail,
                             as_attachment = True)
         else:
             return render_template('upload_file.html')
+        
     except Exception as e:
         raise CustomException(e,sys)
     

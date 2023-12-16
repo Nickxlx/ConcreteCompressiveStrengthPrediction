@@ -1,4 +1,5 @@
-import os, sys
+import os
+import sys
 
 from src.exception import CustomException
 from src.logger import logging
@@ -14,23 +15,6 @@ from dataclasses import dataclass
 class ModelTrainerConfig:
     model_obj_path = os.path.join("artifacts", "model.pkl")
     model_config_file_path = os.path.join("config", "model.yaml")
-
-class CustomModel:
-    def __init__(self, preprocessing_object, trained_model_object):
-        self.preprocessing_object = preprocessing_object
-
-        self.trained_model_object = trained_model_object
-
-    def predict(self, X):
-        transformed_feature = self.preprocessing_object.transform(X)
-
-        return self.trained_model_object.predict(transformed_feature)
-
-    def __repr__(self):
-        return f"{type(self.trained_model_object).__name__}()"
-
-    def __str__(self):
-        return f"{type(self.trained_model_object).__name__}()"
 
 class ModelTrainer:
     def __init__(self):
@@ -89,7 +73,6 @@ class ModelTrainer:
             best_model = models[best_model_name]
 
             logging.info(f"Tuning the best model")
-
             best_model = self.finetune_best_model(
                 best_model_name= best_model_name,
                 best_model_object = best_model,
@@ -107,24 +90,15 @@ class ModelTrainer:
             else:
                 print(f"Best Model Found , Model Name :{best_model_name}, R2 Score: {best_model_score*100:.2f}%")
 
-            logging.info(f"loading preprocessor obj")
-            preprocessor = load_obj(file_path=preprocessor_path)
-
-            logging.info(f"Best found model on both training and testing dataset")
-
-            custom_model = CustomModel(
-                preprocessing_object=preprocessor,
-                trained_model_object=best_model,
-            )
-
             logging.info(
                 f"Saving model at path: {self.model_trainer_config.model_obj_path}"
             )
-
-            save_obj(file_path=self.model_trainer_config.model_obj_path,
-                    obj=custom_model)
             
-            return best_model_score
-
+            save_obj(
+                    file_path=self.model_trainer_config.model_obj_path,
+                    obj=best_model
+                    )
+            print ("Model Training is Sucsessfully Done! ")
+            return
         except Exception as e:
             raise CustomException(e, sys)

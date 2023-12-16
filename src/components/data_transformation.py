@@ -8,7 +8,7 @@ from src.logger import logging
 from src.utils import save_obj
 
 from sklearn.pipeline import Pipeline
-from sklearn.impute import KNNImputer
+from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 
 from dataclasses import dataclass
@@ -23,7 +23,7 @@ class DataTransformation:
 
     def get_data_transform(self):
         try:
-            imputer = ("imputer", KNNImputer(n_neighbors=3, weights='uniform', missing_values=np.nan))
+            imputer =  ("imputer", SimpleImputer(strategy="mean"))
             scaler = ("scaler", StandardScaler())
 
             preprocessor = Pipeline(

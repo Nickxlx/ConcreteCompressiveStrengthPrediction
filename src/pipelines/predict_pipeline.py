@@ -34,21 +34,23 @@ class PredictionPipeline:
             input_csv_file.save(pred_file_path)
             logging.info("Input file saved successfully.")
             return pred_file_path
+        
         except Exception as e:
             raise CustomException(e,sys)
 
     def predict(self, features):
+
         try:
+            logging.info("Initializing Prediction. ")
+
             preprocessor_path = os.path.join("artifacts", "preprocessor.pkl")
             model_path = os.path.join("artifacts","model.pkl")
-
             preprocessor = load_obj(file_path=preprocessor_path)
             model = load_obj(file_path=model_path)
             feature_scaled = preprocessor.transform(features)
             preds = model.predict(feature_scaled)
 
             logging.info("Prediction successful.")
-
             return preds
 
         except Exception as e:
@@ -58,13 +60,14 @@ class PredictionPipeline:
         try:
             # Load the input data
             input_dataframe: pd.DataFrame = pd.read_csv(input_dataframe_path)
-
+            
+            # Droping the Output Feature
             input_dataframe = input_dataframe.drop(columns=["strength"], axis=1)
 
             # Predict using the model
             predictions = self.predict(input_dataframe) 
 
-            # Add predictions to the DataFrame
+            # Add predictions feature to the DataFrame
             input_dataframe["predicted_strength"] = predictions
             
             os.makedirs(self.prediction_file_detail.prediction_output_dirname, exist_ok=True)
@@ -77,11 +80,14 @@ class PredictionPipeline:
         
     def run_pipeline(self):
         try:
+            logging.info("Initializing Prediction Pipeline")
+
             input_csv_path = self.save_input_files()
         
             self.get_predicted_dataframe(input_csv_path)
 
-            return self.prediction_file_detail
+            return self.prediction_file_detail.prediction_file_path
+        
         except Exception as e:
             raise CustomException(e, sys)
 
