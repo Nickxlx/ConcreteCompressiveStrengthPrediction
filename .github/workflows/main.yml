@@ -1,4 +1,4 @@
-# These are in the form of key and values format
+# These are in the form of key and values format (dict)
 name: workflow
 
 on:
