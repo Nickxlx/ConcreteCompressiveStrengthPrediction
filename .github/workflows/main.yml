@@ -57,7 +57,6 @@ jobs:
         run: |
           docker build -t ${{ secrets.AWS_ECR_REPO_URI }}:$IMAGE_TAG .
           docker push ${{ secrets.AWS_ECR_REPO_URI }}:$IMAGE_TAG
-<<<<<<< HEAD
 
   continuous-deployment:
     name: Continuous Deployment
@@ -89,5 +88,3 @@ jobs:
       - name: Clean previous images and containers
         run: |
           docker system prune -f
-=======
->>>>>>> 34aee1ab864ea6e82ef830f73749935bd4a6c518
