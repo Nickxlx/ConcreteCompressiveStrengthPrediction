@@ -44,7 +44,7 @@ MongoDB is a popular NoSQL database that allows you to store and retrieve data i
 
 4. Once you have verified your email address, log in to your MongoDB account.
 
-## Step 2: Create a MongoDB database
+### Step 2: Create a MongoDB database
 
 **To create a MongoDB database, follow these steps:**
 
@@ -58,7 +58,7 @@ MongoDB is a popular NoSQL database that allows you to store and retrieve data i
 
 5. Once the cluster is created, click on the "Collections" button to create a new collection in the database.
 
-## Step 3: Get the Python 3.8 client URL
+### Step 3: Get the Python 3.8 client URL
 
 To get the Python 3.8 client URL for MongoDB, follow these steps:
 
@@ -85,7 +85,7 @@ pip install -r requirements.txt
 ```
 python application.py
 ```
-## for prediction go to 
+## For prediction go to 
 http://127.0.0.1:5000/predict
 
 The project should run now in your local pc. 
