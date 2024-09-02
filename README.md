@@ -1,91 +1,89 @@
-# Dataset
+# Local Project Setup: Concrete Compressive Strength Prediction
+
+## Overview
+This project involves predicting the compressive strength of concrete based on its ingredients and age. Concrete compressive strength is a crucial factor in civil engineering, and it is influenced by several non-linear factors, including the type and quantity of materials used (cement, blast furnace slag, fly ash, water, superplasticizer, coarse aggregate, and fine aggregate). The dataset for this project is available in the file `cement_data.csv`.
+
+## Prerequisites
+
+### 1. Environment Setup
+Creating a dedicated environment ensures that all dependencies are isolated, reducing conflicts with other projects.
+
+**Step 1: Create a new Conda environment**
+
+Execute the following command to create a new Conda environment with Python 3.8:
+```bash
+conda create --prefix ./venv python=3.8 -y
 ```
-from Notebooks import cement_data.csv
+
+**Step 2: Activate the Conda environment**
+
+Once the environment is created, activate it using:
+```bash
+conda activate ./venv
 ```
 
-## About dataset
-```
-Concrete is the most important material in civil engineering. The
-concrete compressive strength is a highly nonlinear function of age and
-ingredients. These ingredients include cement, blast furnace slag, fly ash,
-water, superplasticizer, coarse aggregate, and fine aggregate.
+### 2. MongoDB Account Setup
+MongoDB is used as the database for storing and managing data. Below are the steps to set up MongoDB.
 
-```
-# Local Project Setup
+**Step 1: Create a MongoDB Account**
 
-So, to set this project in local we have couple of steps needed. 
+1. Visit the [MongoDB website](https://www.mongodb.com/) and click on "Sign Up."
+2. Complete the registration form with your name, email, and password.
+3. Verify your email address by clicking on the verification link sent to your inbox.
+4. After verification, log in to your MongoDB account.
 
-1. Environment creation
-2. Mongodb Account setting
-3. Environment variable settings
+**Step 2: Create a MongoDB Database**
 
-💿 Installing
-## Create a new Conda environment
-```
-conda create --prefix venv python==3.8 -y
-```
-```
-conda activate /.venv
-````
+1. On the MongoDB Atlas dashboard, click "Create a Cluster."
+2. Select the "Shared" option to choose the free tier.
+3. Choose your preferred cloud provider, region, and give your cluster a name.
+4. Click "Create Cluster" and wait for it to be provisioned.
+5. Once your cluster is ready, click "Collections" to create a new collection in your database.
 
-## MongoDb account setting
+**Step 3: Obtain the Python Client URL**
 
-MongoDB is a popular NoSQL database that allows you to store and retrieve data in a flexible and scalable way. In this guide, we will go through the steps of creating a MongoDB account, database, and how to get the Python 3.8 client URL for MongoDB.
+1. In the MongoDB Atlas dashboard, click on "Connect."
+2. Choose "Connect your Application."
+3. Select Python as your preferred programming language and ensure the version is 3.6 or above.
+4. Copy the provided Python connection URL.
 
-### Step 1: Create a MongoDB account
+You will use this URL to connect your Python application to MongoDB.
 
-**To create a MongoDB account, follow these steps:**
+### 3. Environment Variable Configuration
+Ensure your MongoDB credentials and other sensitive information are securely managed using environment variables. For example:
 
-1. Go to the MongoDB website and click on the "Sign Up" button.
+1. Create a `.env` file in the root of your project.
+2. Add your MongoDB connection string and other variables:
+   ```
+   MONGO_URI=your_mongodb_connection_string
+   ```
 
-2. Fill in the required details such as your name, email address, and password.
+### 4. Installing Project Dependencies
+With the environment set up and MongoDB configured, install the necessary dependencies for the project.
 
-3. Verify your email address by clicking on the link sent to your email.
+**Step 1: Install dependencies**
 
-4. Once you have verified your email address, log in to your MongoDB account.
-
-### Step 2: Create a MongoDB database
-
-**To create a MongoDB database, follow these steps:**
-
-1. Click on the "Create a Cluster" button on the MongoDB Atlas dashboard.
-
-2. Choose the free plan by selecting the "Shared" option.
-
-3. Choose your preferred cloud provider, region, and cluster name.
-
-4. Click on the "Create Cluster" button.
-
-5. Once the cluster is created, click on the "Collections" button to create a new collection in the database.
-
-### Step 3: Get the Python 3.8 client URL
-
-To get the Python 3.8 client URL for MongoDB, follow these steps:
-
-1. Click on the "Connect" button on the MongoDB Atlas dashboard.
-
-2. Select "Connect your Application".
-
-3. Choose your preferred programming language ( for us python), version ( for us 3.6 or above), and driver.
-
-4. Copy the Python 3.8 client URL provided.
-
-5. Use the client URL to connect to your MongoDB database in Python.
-
-## Final Project Run
-
-Once you have successfully completed the steps above, 
-- Install the **requirements.txt** by running the following command 
-
-To install the dependencies
-```
+Ensure you are in your activated Conda environment, then run:
+```bash
 pip install -r requirements.txt
 ```
- Run Application
-```
+
+### 5. Running the Application
+Once all dependencies are installed, you can run the application.
+
+**Step 1: Start the application**
+
+Run the following command:
+```bash
 python application.py
 ```
-## For prediction go to 
-http://127.0.0.1:5000/predict
 
-The project should run now in your local pc. 
+**Step 2: Access the prediction service**
+
+Open your browser and navigate to:
+```
+http://127.0.0.1:5000/predict
+```
+This will take you to the prediction interface, where you can input data and receive predictions on concrete compressive strength.
+
+---
