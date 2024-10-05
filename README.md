@@ -1,9 +1,9 @@
-# Local Project Setup: Concrete Compressive Strength Prediction
+# Concrete Compressive Strength Prediction
 
 ## Overview
 This project involves predicting the compressive strength of concrete based on its ingredients and age. Concrete compressive strength is a crucial factor in civil engineering, and it is influenced by several non-linear factors, including the type and quantity of materials used (cement, blast furnace slag, fly ash, water, superplasticizer, coarse aggregate, and fine aggregate). The dataset for this project is available in the file `cement_data.csv`.
 
-## Prerequisites
+## Prerequisites and Local Project Setup: 
 
 ### 1. Environment Setup
 Creating a dedicated environment ensures that all dependencies are isolated, reducing conflicts with other projects.
